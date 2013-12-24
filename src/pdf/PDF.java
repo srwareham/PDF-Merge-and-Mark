@@ -13,6 +13,9 @@ import java.io.OutputStream;
  */
 public class PDF {
 	private String myTitle;
+	private int myID;
+	// 345-399 599-699
+	private String myNestIDRange;
 	private InputStream myInputStream;
 	private OutputStream myOutputStream;
 
@@ -21,8 +24,9 @@ public class PDF {
 	 * 
 	 * @param title
 	 */
-	public PDF(String title) {
+	public PDF(String title, int ID) {
 		myTitle = title;
+		myID = ID;
 	}
 
 	/**
@@ -31,8 +35,8 @@ public class PDF {
 	 * @param title
 	 * @param inStream
 	 */
-	public PDF(String title, InputStream inStream) {
-		this(title);
+	public PDF(String title, int ID, InputStream inStream) {
+		this(title, ID);
 		myInputStream = inStream;
 	}
 
@@ -42,9 +46,66 @@ public class PDF {
 	 * @param title
 	 * @param outStream
 	 */
-	public PDF(String title, OutputStream outStream) {
-		this(title);
+	public PDF(String title, int ID, OutputStream outStream) {
+		this(title, ID);
 		myOutputStream = outStream;
+	}
+
+	public int getID() {
+		return myID;
+	}
+
+	public void setID(int ID) {
+		myID = ID;
+	}
+
+	public String getNestIDRange() {
+		return myNestIDRange;
+	}
+
+	/**
+	 * Set the range of Ids that share this sublevel. Entries are delimited by
+	 * whitespace. If they have a "-" between values the lowerbound will be
+	 * included and the upper bound will be excluded single values are taken
+	 * alone.
+	 * 
+	 * @param input
+	 *            ex: 400-405 200-300 2 3 4 5
+	 */
+	public void setNestIDRange(String input) {
+		myNestIDRange = input;
+	}
+
+	/**
+	 * Returns true if these two PDF's share an ID Nest range.
+	 * 
+	 * TODO:Clean this up significantly. Perhaps create a class for PDF
+	 * precedence data.
+	 * 
+	 * @param other
+	 * @return
+	 */
+	public boolean shareIDNest(PDF other) {
+		String unParsed = other.getNestIDRange();
+		if (unParsed == null) {
+			return false;
+		}
+		String[] ranges = unParsed.split(" ");
+		for (String s : ranges) {
+			if (s.contains("-")) {
+				String[] bounds = s.split("-");
+				int low = Integer.parseInt(bounds[0]);
+				int high = Integer.parseInt(bounds[1]);
+				if (myID >= low && myID < high) {
+					return true;
+				}
+			} else {
+				if (myID == Integer.parseInt(s)) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 
 	/**
