@@ -18,11 +18,11 @@ public class EnglishResourceTester {
 	public void testEnglish() {
 		assertEquals(
 				"documentException Resource Mismatch",
-				SystemConfiguration.getLanguageBundle().getString(
+				SystemConfiguration.getLocalizedString(
 						"documentException"), "Document Exception Creating");
 		assertEquals(
 				"ioException Resource Mismatch",
-				SystemConfiguration.getLanguageBundle().getString(
+				SystemConfiguration.getLocalizedString(
 						"ioException"), "I/O Exception Creating");
 	}
 

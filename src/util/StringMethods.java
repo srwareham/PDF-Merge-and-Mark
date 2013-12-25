@@ -68,7 +68,8 @@ public class StringMethods {
 	}
 
 	/**
-	 * Returns just a filename. No path, no extension.
+	 * Returns just a filename. No path, no extension. Works for local paths and
+	 * URLs.
 	 * 
 	 * @param fileNameOrPath
 	 * @return

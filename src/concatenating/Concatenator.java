@@ -102,8 +102,7 @@ public class Concatenator {
 	}
 
 	private void creationError(String errorKey, ConcatenateRequest cr) {
-		String errorMessage = SystemConfiguration.getLanguageBundle()
-				.getString(errorKey);
+		String errorMessage = SystemConfiguration.getLocalizedString(errorKey);
 		MessageLogger.getLogger().log(Level.SEVERE,
 				errorMessage + ": " + cr.getOutputPDF().getTitle());
 	}

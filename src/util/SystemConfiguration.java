@@ -33,23 +33,24 @@ public class SystemConfiguration {
 	}
 
 	/**
-	 * Returns the ResourceBundle for the current working language. In instances
-	 * of error, English is used by default.
+	 * Given a key, return the locale value associated with it from the current
+	 * working language. If the key is not defined, "key" NOT IN RESOURCES will
+	 * be returned. If the key is null NULLKEY NOT IN RESOURCES will be
+	 * returned.
 	 * 
 	 * @return
 	 */
-	public static ResourceBundle getLanguageBundle() {
-		if (WORKING_LANGUAGE == null) {
-			setWorkingLanguageToDefault();
+	public static String getLocalizedString(String key) {
+		if (key == null) {
+			key = "NULLKEY";
 		}
+		String ans = "\" " + key + "\" NOT IN RESOURCES";
 		try {
-			return ResourceBundle.getBundle(LANGUAGE_RESOURCE_PACKAGE_LOCATION
-					+ WORKING_LANGUAGE);
-			// Default language is English
+			ans = getLanguageBundle().getString(key);
 		} catch (MissingResourceException e) {
-			return ResourceBundle.getBundle(LANGUAGE_RESOURCE_PACKAGE_LOCATION
-					+ ENGLISH);
+
 		}
+		return ans;
 	}
 
 	/**
@@ -66,6 +67,26 @@ public class SystemConfiguration {
 			splitBy = "\\";
 		}
 		return splitBy;
+	}
+
+	/**
+	 * Returns the ResourceBundle for the current working language. In instances
+	 * of error, English is used by default.
+	 * 
+	 * @return
+	 */
+	private static ResourceBundle getLanguageBundle() {
+		if (WORKING_LANGUAGE == null) {
+			setWorkingLanguageToDefault();
+		}
+		try {
+			return ResourceBundle.getBundle(LANGUAGE_RESOURCE_PACKAGE_LOCATION
+					+ WORKING_LANGUAGE);
+			// Default language is English
+		} catch (MissingResourceException e) {
+			return ResourceBundle.getBundle(LANGUAGE_RESOURCE_PACKAGE_LOCATION
+					+ ENGLISH);
+		}
 	}
 
 	/**
