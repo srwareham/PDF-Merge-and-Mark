@@ -49,6 +49,14 @@ public class ConcatenateRequest {
 		myInputs = inputs;
 	}
 
+	public boolean getBookmarkify() {
+		return myBookmarkify;
+	}
+
+	public void setBookmarkify(boolean bool) {
+		myBookmarkify = bool;
+	}
+
 	// TODO: create heurisitic for adding in an individual pdf with some sort of
 	// ordering
 	// information. Perhaps a method for a series of pdfs and a shared nesting
