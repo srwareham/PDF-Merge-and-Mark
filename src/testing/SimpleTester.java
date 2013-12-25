@@ -9,6 +9,9 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+
+import logging.MessageLogger;
 
 import pdf.PDF;
 import util.StringMethods;
@@ -42,10 +45,13 @@ public class SimpleTester {
 
 			}
 		}
-
-		inputs.add(new PDF(StringMethods.getJustFilename(testInputURL), 0,
-				urlfetch.fetchInputStream(testInputURL)));
-
+		InputStream in = urlfetch.fetchInputStream(testInputURL);
+		if (in != null) {
+			inputs.add(new PDF(StringMethods.getJustFilename(testInputURL), 0,
+					in));
+		} else {
+			MessageLogger.getLogger().log(Level.SEVERE, "Skipping " + testInputURL);
+		}
 		OutputStream os = osf.fetchOutputStream(outputDir + outputName);
 		PDF output = new PDF(StringMethods.getJustFilename(outputName), 1, os);
 		boolean bookmarkify = true;
