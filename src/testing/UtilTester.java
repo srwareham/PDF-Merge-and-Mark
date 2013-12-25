@@ -52,35 +52,31 @@ public class UtilTester {
 
 	@Test
 	public void testGetFileExtension() {
-		assertTrue("File Extension From Full Path Mismatch",
-				".pdf".equals(StringMethods
-						.getFileExtension("/Users/user/dir/name.pdf")));
+		assertEquals("File Extension From Full Path Mismatch", ".pdf",
+				StringMethods.getFileExtension("/Users/user/dir/name.pdf"));
 
-		assertTrue("File Extension From Name Mismatch",
-				".pdf".equals(StringMethods.getFileExtension("test.pdf")));
+		assertEquals("File Extension From Name Mismatch", ".pdf",
+				StringMethods.getFileExtension("test.pdf"));
 	}
 
 	@Test
 	public void testLocalPathToFilename() {
-		assertTrue("Local Path To Filename Mismatch",
-				"test.pdf".equals(StringMethods
-						.localPathToFileName("/Users/user/test.pdf")));
+		assertEquals("Local Path To Filename Mismatch", "test.pdf",
+				StringMethods.localPathToFileName("/Users/user/test.pdf"));
 	}
 
 	@Test
 	public void testJustFileName() {
-		assertTrue("Just Filename from Path Mismatch",
-				"test".equals(StringMethods
-						.getJustFilename("/Users/user/test.pdf")));
+		assertEquals("Just Filename from Path Mismatch", "test",
+				StringMethods.getJustFilename("/Users/user/test.pdf"));
 
-		assertTrue("Just Filename from \"Filename.extension\" Mismatch",
-				"test".equals(StringMethods.getJustFilename("test.pdf")));
+		assertEquals("Just Filename from \"Filename.extension\" Mismatch",
+				"test", StringMethods.getJustFilename("test.pdf"));
 	}
 
 	@Test
 	public void testCapitalizeAllWords() {
-		assertTrue("Capitalize All Words Mismatch",
-				"This Is The End".equals(StringMethods
-						.capitalizeAllWords("this is The end")));
+		assertEquals("Capitalize All Words Mismatch", "This Is The End",
+				(StringMethods.capitalizeAllWords("this is The end")));
 	}
 }
