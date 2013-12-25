@@ -1,14 +1,17 @@
 package testing;
 
-import static org.junit.Assert.*;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
 
-import org.junit.Test;
-
+@RunWith(Suite.class)
+@SuiteClasses({ UtilTester.class })
+/**
+ * Class to run all tests at once.
+ * @author srwareham
+ *
+ */
 public class MasterTester {
-
-	@Test
-	public void test() {
-		fail("Not yet implemented");
-	}
-
+	// Add comma separated classes in SuiteClasses to run multiple tests at
+	// once.
 }

@@ -1,7 +1,5 @@
 package util;
 
-import java.util.ResourceBundle;
-
 import org.junit.Test;
 
 public class StringMethods {
