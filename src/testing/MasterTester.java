@@ -5,7 +5,7 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
-@SuiteClasses({ UtilTester.class })
+@SuiteClasses({ UtilTester.class, EnglishResourceTester.class })
 /**
  * Class to run all tests at once.
  * @author srwareham

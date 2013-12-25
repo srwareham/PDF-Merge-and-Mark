@@ -2,6 +2,7 @@ package testing;
 
 import static org.junit.Assert.*;
 
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import util.SystemConfiguration;
@@ -13,6 +14,10 @@ import util.SystemConfiguration;
  * 
  */
 public class EnglishResourceTester {
+	@BeforeClass
+	public static void initialize() {
+		SystemConfiguration.setWorkingLanguage("en");
+	}
 
 	@Test
 	public void testConcatenatorResources() {
