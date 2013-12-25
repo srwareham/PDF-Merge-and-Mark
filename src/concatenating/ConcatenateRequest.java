@@ -1,8 +1,7 @@
 package concatenating;
 
 import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+//import java.util.TreeMap;
 
 import pdf.PDF;
 
@@ -10,7 +9,7 @@ public class ConcatenateRequest {
 	private List<PDF> myInputs;
 	private PDF myOutputPDF;
 	private boolean myBookmarkify;
-	private TreeMap<Integer, PDF> myPDFs;
+	// private TreeMap<Integer, PDF> myPDFs;
 	int myCounter;
 
 	/**
@@ -26,7 +25,7 @@ public class ConcatenateRequest {
 		myInputs = inputs;
 		myOutputPDF = output;
 		myBookmarkify = bookmarkify;
-		myPDFs = new TreeMap<Integer, PDF>();
+		// myPDFs = new TreeMap<Integer, PDF>();
 		myCounter = 0;
 	}
 

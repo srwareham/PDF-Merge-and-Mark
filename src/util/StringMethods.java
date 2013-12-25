@@ -1,7 +1,5 @@
 package util;
 
-import org.junit.Test;
-
 public class StringMethods {
 	/**
 	 * Takes an input String and returns a capitalized version. Only the first
@@ -11,7 +9,6 @@ public class StringMethods {
 	 * @param input
 	 * @return answer
 	 */
-	@Test
 	public static String capitalizeAllWords(String input) {
 		String answer = "";
 		if (input.length() < 1) {
@@ -39,7 +36,6 @@ public class StringMethods {
 	 * @param args
 	 * @return
 	 */
-	@Test
 	public static String arrayToString(String[] args) {
 		String out = "";
 		for (String s : args) {
@@ -54,7 +50,6 @@ public class StringMethods {
 	 * @param fullPath
 	 * @return
 	 */
-	@Test
 	public static String localPathToFileName(String fullPath) {
 
 		String[] split = fullPath.split(SystemConfiguration.getSplitBy());
@@ -67,7 +62,6 @@ public class StringMethods {
 	 * @param fileNameOrPath
 	 * @return
 	 */
-	@Test
 	public static String getFileExtension(String fileNameOrPath) {
 		int index = fileNameOrPath.indexOf(".");
 		return fileNameOrPath.substring(index, fileNameOrPath.length());
@@ -79,7 +73,6 @@ public class StringMethods {
 	 * @param fileNameOrPath
 	 * @return
 	 */
-	@Test
 	public static String getJustFilename(String fileNameOrPath) {
 		int startIndex = 0;
 		// then this is a full path
