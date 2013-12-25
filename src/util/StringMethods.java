@@ -25,7 +25,6 @@ public class StringMethods {
 				answer += letter.toLowerCase();
 			}
 		}
-		System.out.println("ANS: " + answer);
 		return answer;
 	}
 
