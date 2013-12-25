@@ -4,6 +4,8 @@ import java.util.Locale;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
+import org.junit.Test;
+
 public class SystemConfiguration {
 	private static final String LANGUAGE_RESOURCE_PACKAGE_LOCATION = "resources.languages.";
 	private static final String ENGLISH = "en";
@@ -14,6 +16,7 @@ public class SystemConfiguration {
 	 * 
 	 * @return The language code of the working language. ex: English = en
 	 */
+	@Test
 	public static String getWorkingLanguage() {
 		if (WORKING_LANGUAGE == null) {
 			setWorkingLanguageToDefault();
@@ -28,6 +31,7 @@ public class SystemConfiguration {
 	 * 
 	 * @param language
 	 */
+	@Test
 	public static void setWorkingLanguage(String language) {
 		WORKING_LANGUAGE = language;
 	}
@@ -50,6 +54,22 @@ public class SystemConfiguration {
 			return ResourceBundle.getBundle(LANGUAGE_RESOURCE_PACKAGE_LOCATION
 					+ ENGLISH);
 		}
+	}
+
+	/**
+	 * Function to determine what the filename delimiter should be. Assumes all
+	 * non windows systems use "/".
+	 * 
+	 * @return
+	 */
+	public static String getSplitBy() {
+		String os = System.getProperty("os.name");
+		os = os.toLowerCase();
+		String splitBy = "/";
+		if (os.contains("windows")) {
+			splitBy = "\\";
+		}
+		return splitBy;
 	}
 
 	/**
