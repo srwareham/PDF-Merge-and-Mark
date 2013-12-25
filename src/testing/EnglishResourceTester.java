@@ -15,15 +15,28 @@ import util.SystemConfiguration;
 public class EnglishResourceTester {
 
 	@Test
-	public void testEnglish() {
-		assertEquals(
-				"documentException Resource Mismatch",
-				SystemConfiguration.getLocalizedString(
-						"documentException"), "Document Exception Creating");
-		assertEquals(
-				"ioException Resource Mismatch",
-				SystemConfiguration.getLocalizedString(
-						"ioException"), "I/O Exception Creating");
+	public void testConcatenatorResources() {
+		assertEquals("documentException Resource Mismatch",
+				SystemConfiguration.getLocalizedString("documentException"),
+				"Document Exception Creating");
+		assertEquals("ioException Resource Mismatch",
+				SystemConfiguration.getLocalizedString("ioException"),
+				"I/O Exception Creating");
+
+	}
+
+	@Test
+	public void testURLManagerResources() {
+		assertEquals("requesting Resource Mismatch",
+				SystemConfiguration.getLocalizedString("requesting"),
+				"Requesting");
+
+		assertEquals("obtainedStreamFrom Resource Mismatch",
+				SystemConfiguration.getLocalizedString("obtainedStreamFrom"),
+				"Obtained Stream From");
+		assertEquals("errorDownloading Resource Mismatch",
+				SystemConfiguration.getLocalizedString("errorDownloading"),
+				"Error Downloading");
 	}
 
 }

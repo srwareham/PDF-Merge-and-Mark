@@ -3,6 +3,7 @@ package testing;
 import io.FileManager;
 import io.InputStreamFetcher;
 import io.OutputStreamFetcher;
+import io.URLManager;
 
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -15,9 +16,10 @@ import concatenating.ConcatenateRequest;
 import concatenating.Concatenator;
 
 public class SimpleTester {
-	public static final String inputDir = "/Users/srwareham/workspace/PDFMergeAndMark/inputFiles";
-	public static final String outputDir = "/Users/srwareham/workspace/PDFMergeAndMark/testOutput/";
-	public static final String outputName = "simpleTest.pdf";
+	private static final String inputDir = "/Users/srwareham/workspace/PDFMergeAndMark/inputFiles";
+	private static final String outputDir = "/Users/srwareham/workspace/PDFMergeAndMark/testOutput/";
+	private static final String testInputURL = "http://bitcoin.org/bitcoin.pdf";
+	private static final String outputName = "simpleTest.pdf";
 
 	public static void main(String[] args) {
 		test();
@@ -28,6 +30,7 @@ public class SimpleTester {
 		FileManager fm = new FileManager();
 		InputStreamFetcher isf = fm;
 		OutputStreamFetcher osf = fm;
+		InputStreamFetcher urlfetch = new URLManager();
 
 		List<PDF> inputs = new ArrayList<PDF>();
 		for (String fullPath : fm.getDirContents(inputDir)) {
@@ -39,6 +42,9 @@ public class SimpleTester {
 
 			}
 		}
+
+		inputs.add(new PDF(StringMethods.getJustFilename(testInputURL), 0,
+				urlfetch.fetchInputStream(testInputURL)));
 
 		OutputStream os = osf.fetchOutputStream(outputDir + outputName);
 		PDF output = new PDF(StringMethods.getJustFilename(outputName), 1, os);
