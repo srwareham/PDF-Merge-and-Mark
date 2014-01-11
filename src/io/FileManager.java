@@ -5,12 +5,14 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
+
 
 import util.SystemConfiguration;
 
@@ -135,7 +137,66 @@ public class FileManager implements InputStreamFetcher, OutputStreamFetcher {
 		}
 
 		for (String file : dir.list()) {
-			addFiles(files, fullPath + SystemConfiguration.getSplitBy() + file);
+			addFiles(files, fullPath + SystemConfiguration.getFilePathDelimiter() + file);
+		}
+		return files;
+	}
+	
+	
+	
+	//TODO:!!!!! Replace Deprecated String version (perhaps) also add docs about filefilter
+	/**
+	 * Returns a list of every file with its full path (including from all
+	 * sub-directories)
+	 * 
+	 * NOTE: this includes .DS_Store's etc. The order of this list is by
+	 * sublevel. The first files are from the root in OS-specific order, then
+	 * the next subdir and each subsquent nested directory.
+	 * 
+	 * @param fullPath
+	 * @return
+	 */
+	public List<File> getDirContents(String fullPath, FilenameFilter ff) {
+		List<File> contents = new ArrayList<File>();
+		File dir = new File(fullPath);
+		if (dir.isDirectory()) {
+			contents = adddFiles(contents, fullPath, ff);
+
+		} 
+		// System.out.println(contents.toString());
+		return contents;
+
+	}
+	//for all files
+	public List<File> getDirrContents(String fullPath) {
+		return getDirContents(fullPath, new FilenameFilter(){
+
+			@Override
+			public boolean accept(File dir, String name) {
+				return true;
+			}
+			
+		});
+	}
+
+	/**
+	 * Recursive helper function for getting contents of all sub-directories.
+	 * 
+	 * @param files
+	 * @param fullPath
+	 * @return
+	 */
+	private List<File> adddFiles(List<File> files, String fullPath, FilenameFilter ff) {
+		;
+		File dir = new File(fullPath);
+		if (!dir.isDirectory()) {
+			files.add(dir);//then is file
+			System.out.println(dir.getAbsolutePath());
+			return files;
+		}
+
+		for (String file : dir.list(ff)) {
+			adddFiles(files, fullPath + SystemConfiguration.getFilePathDelimiter() + file, ff);
 		}
 		return files;
 	}

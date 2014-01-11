@@ -59,7 +59,7 @@ public class SystemConfiguration {
 	 * 
 	 * @return
 	 */
-	public static String getSplitBy() {
+	public static String getFilePathDelimiter() {
 		String os = System.getProperty("os.name");
 		os = os.toLowerCase();
 		String splitBy = "/";
@@ -67,6 +67,16 @@ public class SystemConfiguration {
 			splitBy = "\\";
 		}
 		return splitBy;
+	}
+
+	/**
+	 * Returns the working directory of this program.
+	 * TODO: test on windows.
+	 * 
+	 * @return
+	 */
+	public static String getWorkingDir() {
+		return System.getProperty("user.dir") + getFilePathDelimiter();
 	}
 
 	/**

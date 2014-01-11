@@ -13,6 +13,7 @@ import util.SystemConfiguration;
 
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.exceptions.InvalidPdfException;
 import com.itextpdf.text.pdf.PdfCopy;
 import com.itextpdf.text.pdf.PdfReader;
 import com.itextpdf.text.pdf.SimpleBookmark;
@@ -31,12 +32,12 @@ public class Concatenator {
 		} catch (IOException e) {
 			e.printStackTrace();
 			creationError(CREATING_IO_EXCEPTION, cr);
-		}
+		} 
 	}
 
 	// helper function whose purpose is to make error handling more readable.
 	private void cab(ConcatenateRequest cr) throws DocumentException,
-			IOException {
+			IOException, InvalidPdfException {
 		List<PDF> inputs = cr.getInputs();
 		PDF output = cr.getOutputPDF();
 		boolean bookmarkify = cr.getBookmarkify();
@@ -47,6 +48,7 @@ public class Concatenator {
 		PdfReader reader;
 		ArrayList<HashMap<String, Object>> bookmarks = new ArrayList<HashMap<String, Object>>();
 		for (PDF p : inputs) {
+			try {
 			reader = new PdfReader(p.getInputStream());
 
 			// Build Bookmarks
@@ -79,6 +81,10 @@ public class Concatenator {
 			copy.freeReader(reader);
 			reader.close();
 			totalPages += numPages;
+			} catch (InvalidPdfException e){
+				//TODO: add localization
+				MessageLogger.getLogger().log(Level.SEVERE, p.getTitle() +" is not a valid PDF!");
+			}
 		}
 		// set bookmarks
 		copy.setOutlines(bookmarks);

@@ -51,7 +51,7 @@ public class StringMethods {
 	 */
 	public static String localPathToFileName(String fullPath) {
 
-		String[] split = fullPath.split(SystemConfiguration.getSplitBy());
+		String[] split = fullPath.split(SystemConfiguration.getFilePathDelimiter());
 		return split[split.length - 1];
 	}
 
@@ -76,9 +76,9 @@ public class StringMethods {
 	public static String getJustFilename(String fileNameOrPath) {
 		int startIndex = 0;
 		// then this is a full path
-		if (!(fileNameOrPath.indexOf(SystemConfiguration.getSplitBy()) == -1)) {
+		if (!(fileNameOrPath.indexOf(SystemConfiguration.getFilePathDelimiter()) == -1)) {
 			String[] split = fileNameOrPath.split(SystemConfiguration
-					.getSplitBy());
+					.getFilePathDelimiter());
 			startIndex = fileNameOrPath.indexOf(split[split.length - 1]);
 		}
 		// the last found index of "." defaults to include up until last
