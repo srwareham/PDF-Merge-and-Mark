@@ -26,6 +26,10 @@ public class PDFFileChooser extends JFileChooser {
 		setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
 		setAcceptAllFileFilterUsed(false);
 		setFileFilter(new PDFFileFilter());
+		this.setApproveButtonText("Add PDFs");//TODO: add localization
+//		this.setSelectedFile(new File(System.getProperty("user.home")));//TODO: remove redundancy if works
+		this.changeToParentDirectory();
+//		this.approveSelection();
 	}
 
 	public List<File> getSelectedPDFs() {

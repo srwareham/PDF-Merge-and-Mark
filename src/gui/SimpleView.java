@@ -10,7 +10,7 @@ import javax.swing.*;
 import javax.swing.event.*;
 
 import concatenating.ConcatenateRequestor;
-
+//TODO: URGENT look into infinite loop from canceling the jfilechooser...  only happens if dont thread safe execute.. jk still persists
 public class SimpleView extends JPanel implements ListSelectionListener {
 	/**
 	 * 
@@ -180,7 +180,12 @@ public class SimpleView extends JPanel implements ListSelectionListener {
 		// TODO: add non-determinism
 		// String outputLocation =
 		// "/Users/srwareham/workspace/PDFMergeAndMark/testOutput/test.pdf";
-		requestor.makeRequest(inputPaths, myOutputName.getText(), false);
+		//TODO: add pretty logic for output name. either default directory or defined full path. or even parse ~ for convience
+		PDFFileChooser c = new PDFFileChooser();
+		c.showSaveDialog(this);
+//		requestor.makeRequest(inputPaths, myOutputName.getText(), false);
+//		requestor.makeRequest(inputPaths, c.getSelectedFile().getAbsolutePath(), false);
+		myOutputName.setText(c.getSelectedFile().getAbsolutePath());//TODO: add create output button
 	}
 
 	// TODO: add error handling
@@ -438,7 +443,6 @@ public class SimpleView extends JPanel implements ListSelectionListener {
 
 			JLabel label = (JLabel) super.getListCellRendererComponent(list,
 					value, index, isSelected, cellHasFocus);
-
 			if (index % 2 == 0) {
 				if (isSelected == true) {
 					// this is the same color as the default "Selected" for
@@ -452,47 +456,32 @@ public class SimpleView extends JPanel implements ListSelectionListener {
 		}
 	}
 
-	// This method is required by ListSelectionListener.
+	@Override
 	public void valueChanged(ListSelectionEvent e) {
 		if (e.getValueIsAdjusting() == false) {
 
 			if (myInputs.getSelectedIndex() == -1) {
-				// No selection, disable fire button.
 				myRemoveButton.setEnabled(false);
-
 			} else {
-				// Selection, enable the fire button.
 				myRemoveButton.setEnabled(true);
 			}
 		}
 	}
 
-	/**
-	 * Create the GUI and show it. For thread safety, this method should be
-	 * invoked from the event-dispatching thread.
-	 */
-	private static void createAndShowGUI() {
-		// Create and set up the window.
+	private static void createView() {
 		JFrame frame = new JFrame("SimpleView");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-		// Create and set up the content pane.
-		JComponent newContentPane = new SimpleView();
-		newContentPane.setOpaque(true); // content panes must be opaque
-		frame.setContentPane(newContentPane);
-
-		// Display the window.
+		frame.setContentPane(new SimpleView());
 		frame.pack();
 		frame.setVisible(true);
 	}
 
 	public static void main(String[] args) {
-		// Schedule a job for the event-dispatching thread:
-		// creating and showing this application's GUI.
-		javax.swing.SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				createAndShowGUI();
-			}
-		});
+		 javax.swing.SwingUtilities.invokeLater(new Runnable() {
+		 public void run() {
+		 createView();
+		 }
+		 });
+//		createAndShowGUI();
 	}
 }
